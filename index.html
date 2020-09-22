@@ -2,162 +2,172 @@
 
 <html lang="en">
 
-	<head>
+    <head>
 
-		<meta charset="utf-8">
-		<title>PopG Web</title>
-		<link rel="icon" href="static/img/favicon.gif">
+        <meta charset="utf-8">
+        <title>PopG Web</title>
+        <link rel="icon" href="static/img/favicon.gif">
 
         <!-- fontawesome 5.12.0 -->
         <link rel="stylesheet" href="static/vendor/fontawesome/css/all.min.css">
 
-		<!-- JQuery 3.4.1 -->
-		<script src="static/vendor/jquery/jquery-3.4.1.min.js"></script>
+        <!-- JQuery 3.4.1 -->
+        <script src="static/vendor/jquery/jquery-3.4.1.min.js"></script>
 
-		<!-- Bootstrap 4.4.1 -->
-		<link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
-		<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap 4.4.1 -->
+        <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+        <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- app's own css -->
+        <!-- app's own css -->
         <link rel="stylesheet" href="static/css/custom.css">
 
-	</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163852762-2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-	<body>
+          gtag('config', 'UA-163852762-2');
+        </script>
 
-		<!-- page header -->
-		<div class="container extra_vspace">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h1><a href="index.html">PopG Web</a></h1>
-					<p class="lead">JavaScript implementation of <a target="blank" href="http://evolution.gs.washington.edu/popg/">PopG</a></p>
-				</div>
-			</div>
-		</div>
+    </head>
 
-		<!-- loading icon, removed by js once loaded -->
-		<div class="container-fluid text-center load_icon_container">
-			<div class="row">
-				<div class="col-lg-12">
-					<i class="fas fa-spinner fa-pulse load_icon"></i>
-				</div>
-			</div>
-		</div>
-		
-		<!-- simulation section -->
-		<div class="container-fluid">
-			<div class="row">
+    <body>
 
-				<!-- control panel -->
-				<div class="col-sm-3 offset-sm-1 sim_ctrl text-right load_hide" style="display: none">
-					<form id="sim_form" class="form" action="return false;">
-						<div class="row">
-							<div class="col-sm-8 offset-sm-3">
-								<h3 class="text-center">Configure Simulation</h3>
-								<!--<h3 class="text-center extra_vspace">Configure Simulation</h3>-->
-							</div>
-						</div>						
-						<div class="form-group row">
-							<label for="popSize" class="col-sm-6 col-form-label">Population size:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="popSize" value="100">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="fitGenAA" class="col-sm-6 col-form-label">Fitness of genotype AA:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="fitGenAA" value="1.00" step="0.01">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="fitGenAa" class="col-sm-6 col-form-label">Fitness of genotype Aa:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="fitGenAa" value="1.00" step="0.01">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="fitGenaa" class="col-sm-6 col-form-label">Fitness of genotype aa:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="fitGenaa" value="1.00" step="0.01">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="mutAa" class="col-sm-6 col-form-label">Mutation from A to a:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="mutAa" value="0.0" step="0.1">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="mutaA" class="col-sm-6 col-form-label">Mutation from a to A:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="mutaA" value="0.0" step="0.1">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="migRate" class="col-sm-6 col-form-label">Migration rate:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="migRate" value="0.0" step="0.1">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="initFreq" class="col-sm-6 col-form-label">Initial frequency of allele A:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="initFreq" value="0.0" step="0.1">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="genRun" class="col-sm-6 col-form-label"># Generations:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="genRun" value="100">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="numPop" class="col-sm-6 col-form-label"># Populations:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="numPop" value="10">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="randSeed" class="col-sm-6 col-form-label">Random number seed:</label>
-							<div class="col-sm-5">
-								<input type="number" class="form-control text-center" id="randSeed" placeholder="(Autogenerate)">
-							</div>
-						</div>
+        <!-- page header -->
+        <div class="container extra_vspace">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1><a href="index.html">PopG Web</a></h1>
+                    <p class="lead">JavaScript implementation of <a target="blank" href="http://evolution.gs.washington.edu/popg/">PopG</a></p>
+                </div>
+            </div>
+        </div>
 
-						<div class="form-group row">
-							<div class="col-lg-4 col-sm-12 text-center">
-								<button type="button" id="defaults_button" class="btn btn-lg btn-secondary text-center">Defaults</button>
-							</div>
-							<div class="col-lg-4 col-sm-12 text-center">
-								<button type="button" id="continue_button" class="btn btn-lg btn-primary text-center">Continue</button>
-							</div>
-							<div class="col-lg-4 col-sm-12 text-center">
-								<button type="button" id="sim_button" class="btn btn-lg btn-primary text-center">New Run</button>
-							</div>
-						</div>
+        <!-- loading icon, removed by js once loaded -->
+        <div class="container-fluid text-center load_icon_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <i class="fas fa-spinner fa-pulse load_icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- simulation section -->
+        <div class="container-fluid">
+            <div class="row">
 
-					</form>
-				</div>
+                <!-- control panel -->
+                <div class="col-sm-3 offset-sm-1 sim_ctrl text-right load_hide" style="display: none">
+                    <form id="sim_form" class="form" action="return false;">
+                        <div class="row">
+                            <div class="col-sm-8 offset-sm-3">
+                                <h3 class="text-center">Configure Simulation</h3>
+                                <!--<h3 class="text-center extra_vspace">Configure Simulation</h3>-->
+                            </div>
+                        </div>                      
+                        <div class="form-group row">
+                            <label for="popSize" class="col-sm-6 col-form-label">Population size:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="popSize" value="100">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fitGenAA" class="col-sm-6 col-form-label">Fitness of genotype AA:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="fitGenAA" value="1.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fitGenAa" class="col-sm-6 col-form-label">Fitness of genotype Aa:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="fitGenAa" value="1.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fitGenaa" class="col-sm-6 col-form-label">Fitness of genotype aa:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="fitGenaa" value="1.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mutAa" class="col-sm-6 col-form-label">Mutation from A to a:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="mutAa" value="0.0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mutaA" class="col-sm-6 col-form-label">Mutation from a to A:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="mutaA" value="0.0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="migRate" class="col-sm-6 col-form-label">Migration rate:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="migRate" value="0.0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="initFreq" class="col-sm-6 col-form-label">Initial frequency of allele A:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="initFreq" value="0.0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="genRun" class="col-sm-6 col-form-label"># Generations:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="genRun" value="100">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="numPop" class="col-sm-6 col-form-label"># Populations:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="numPop" value="10">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="randSeed" class="col-sm-6 col-form-label">Random number seed:</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control text-center" id="randSeed" placeholder="(Autogenerate)">
+                            </div>
+                        </div>
 
-				<!-- plot -->
-				<div class="col-sm-8 sim_plot">
-					<div class="plotly_wrapper">
-						<div id="plot_div"></div>
-					</div>
-				</div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-sm-12 text-center">
+                                <button type="button" id="defaults_button" class="btn btn-lg btn-secondary text-center">Defaults</button>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 text-center">
+                                <button type="button" id="continue_button" class="btn btn-lg btn-primary text-center">Continue</button>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 text-center">
+                                <button type="button" id="sim_button" class="btn btn-lg btn-primary text-center">New Run</button>
+                            </div>
+                        </div>
 
-			</div>
-		</div>
+                    </form>
+                </div>
+
+                <!-- plot -->
+                <div class="col-sm-8 sim_plot">
+                    <div class="plotly_wrapper">
+                        <div id="plot_div"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!-- website footer -->
         <div id='footer_wrapper'></div>
 
-	</body>
+    </body>
 
-	<!-- plotly.js 1.52.1 -->
-	<script src="static/vendor/plotly/plotly.js"></script>
+    <!-- plotly.js 1.52.1 -->
+    <script src="static/vendor/plotly/plotly.js"></script>
 
-	<!-- load PopG -->
-	<script src="popg.js"></script>
+    <!-- load PopG -->
+    <script src="popg.js"></script>
 
 </html>
