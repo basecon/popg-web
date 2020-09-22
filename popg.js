@@ -32,6 +32,7 @@ var AXIS_X_TITLE="Generation";          // X-axis label
 var AXIS_Y_TITLE="P(A)";                // Y-axis label 
 var SEED = NaN;                         // default seed for pseudo-random number generation
 var FRAME_TIME = 10;
+var FRAME_LIMIT = 100;
 
 // execute when the DOM is fully loaded
 $(function() {
@@ -276,11 +277,19 @@ Run.prototype.plot_result = function() {
 
     // construct animation frames, each frame is a complete set of traces
     var frames = [];
+    var frame_threshold = Math.floor(this.result[0].length / FRAME_LIMIT);
+    var frame_counter = 0;
     for (var frame_idx = start_idx; frame_idx < this.result[0].length; frame_idx++) {
+        if (frame_counter < frame_threshold) {
+            frame_counter += 1;
+            continue;
+        }
+        frame_counter = 0;
 
         // construct all traces for this frame
         var traces = [];
         var x = xrange(0, frame_idx);
+
         for (var trace_idx = 0; trace_idx < this.result.length; trace_idx++) {
 
             // create a new trace
