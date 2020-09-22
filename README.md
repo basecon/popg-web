@@ -12,7 +12,7 @@ Simulation parameters can be set with URL parameters. View the following three l
 
 2. https://www.popgweb.com/?numPop=50&fitGenAa=0.95&&fitGenaa=0.9&popSize=500
 
-3. https://www.popgweb.com/?numPop=50&fitGenAa=0.95&&fitGenaa=0.9&popSize=1000
+3. https://www.popgweb.com/?numPop=50&fitGenAa=0.95&&fitGenaa=0.9&popSize=10000
 
 These two examples show balancing selection in action:
 
