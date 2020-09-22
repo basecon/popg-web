@@ -1,0 +1,32 @@
+
+.extra_vspace {
+    margin-top: 50px;
+}
+
+.load_icon_container {
+    padding-top: 250px;
+    font-size: 100px;
+}
+
+
+
+/* footer CSS: http://getbootstrap.com/examples/sticky-footer-navbar */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+}
+
+.centertext {
+  text-align: center;
+  border: solid;
+}
