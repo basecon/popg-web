@@ -345,8 +345,17 @@ Run.prototype.plot_result = function() {
                 color: AXIS_FONT_COLOR
             },
         },
-        height:  750,
         hovermode: 'closest',
+        autosize: true,
+        margin: {
+            l: 60,
+            r: 10,
+            b: 50,
+            t: 30,
+            pad: 0,
+        },
+
+
     };
     
     var config = {

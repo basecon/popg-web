@@ -1,4 +1,8 @@
 
+#plot_div {
+  height: 750px;
+}
+
 .extra_vspace {
     margin-top: 50px;
 }
@@ -7,8 +11,6 @@
     padding-top: 250px;
     font-size: 100px;
 }
-
-
 
 /* footer CSS: http://getbootstrap.com/examples/sticky-footer-navbar */
 html {
