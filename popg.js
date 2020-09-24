@@ -165,8 +165,8 @@ Run.prototype.calc_popg = function() {
 
     var config = this.config;
     var beginGen = this.gensSoFar;
-    var endGen = beginGen + config.genRun;
-    this.gensSoFar = this.gensSoFar + config.genRun; // Technically not true until the end of all gens in this run, shoudl move this down
+    var endGen = beginGen + config.numGen;
+    this.gensSoFar = this.gensSoFar + config.numGen; // Technically not true until the end of all gens in this run, shoudl move this down
 
     var currentPopSize = config.popSize * 2; // TODO look into pop gen (diploids, # ppl vs # chromosomes)
     
@@ -174,7 +174,7 @@ Run.prototype.calc_popg = function() {
         // Initialize the big generation array with the starting values for each population
         var i;
         for (i = 0; i <= config.numPop; i++){
-            this.popArray.push(config.initFreq);
+            this.popArray.push(config.initFreqA);
         }
         // If the first run, add the starting values. If not, just continue with them
         this.genArray.push(this.popArray);
@@ -224,9 +224,9 @@ Run.prototype.calc_popg = function() {
             // if genotype is not fixed, calculate the new frequency
             if ((p > 0.0) && (p < 1.0)) {
                 q = 1-p;
-                w = (p * p * config.fitGenAA) + (2.0 * p * q * config.fitGenAa) + (q * q * config.fitGenaa); //get mean fitness
-                pp1 = (p * p * config.fitGenAA) / w; //get frequency of AA after selection
-                pp2 = (2.0 * p * q * config.fitGenAa) / w; //get frequency of Aa after selection                
+                w = (p * p * config.fitAA) + (2.0 * p * q * config.fitAa) + (q * q * config.fitaa); //get mean fitness
+                pp1 = (p * p * config.fitAA) / w; //get frequency of AA after selection
+                pp2 = (2.0 * p * q * config.fitAa) / w; //get frequency of Aa after selection                
                 
                 if (population > 0) { // calculate the next generation for real populations
                     nx = binomial(config.popSize, pp1); // how many AA survive
@@ -270,9 +270,9 @@ Run.prototype.plot_result = function() {
 
     // determine whether this is a new run
     var start_idx = 0;
-    var first_run = this.result[0].length - 1 == this.config.genRun;
+    var first_run = this.result[0].length - 1 == this.config.numGen;
     if (first_run == false) {
-        start_idx = this.result[0].length - this.config.genRun;
+        start_idx = this.result[0].length - this.config.numGen;
     }
 
     // construct animation frames, each frame is a complete set of traces
@@ -462,14 +462,14 @@ function get_default_config() {
     // set default values
     var config = {
         popSize: 100,
-        fitGenAA: 1.0,
-        fitGenAa: 1.0,
-        fitGenaa: 1.0,
+        fitAA: 1.0,
+        fitAa: 1.0,
+        fitaa: 1.0,
         mutAa: 0.0,
         mutaA: 0.0,
         migRate: 0.0,
-        initFreq: 0.5,
-        genRun: 100,
+        initFreqA: 0.5,
+        numGen: 100,
         numPop: 10,
         randSeed: NaN,     
     };
