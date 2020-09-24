@@ -289,7 +289,6 @@ Run.prototype.plot_result = function() {
         // construct all traces for this frame
         var traces = [];
         var x = xrange(0, frame_idx);
-
         for (var trace_idx = 0; trace_idx < this.result.length; trace_idx++) {
 
             // create a new trace
@@ -325,38 +324,86 @@ Run.prototype.plot_result = function() {
 
     }
 
-    // configure plot
-    var layout = {
-        yaxis: {
-            range: [-0.05555555555555555, 1.0555555555555556],
-            title: AXIS_Y_TITLE,
-            titlefont: {
-                family: AXIS_FONT_FAMILY,
-                size: AXIS_FONT_SIZE,
-                color: AXIS_FONT_COLOR
+    // construct layouts with per-frame annotations
+    var layouts = [];
+    for (var i = 0; i < frames.length; i++) {
+
+        // count number of populations that have fixed or lost the allele
+        var num_fixed = 0;
+        var num_lost = 0;
+        for (var j = 0; j < frames[i].length - 1; j++) {
+            var y_series = frames[i][j].y;
+            var last_value = y_series.slice(-1)[0];
+            if (last_value == 1) {
+                num_fixed += 1;
+            } else if (last_value == 0) {
+                num_lost += 1
+            }
+        }
+
+        // configure plot
+        var layout = {
+            yaxis: {
+                range: [-0.05555555555555555, 1.0555555555555556],
+                title: AXIS_Y_TITLE,
+                titlefont: {
+                    family: AXIS_FONT_FAMILY,
+                    size: AXIS_FONT_SIZE,
+                    color: AXIS_FONT_COLOR
+                },
             },
-        },
-        xaxis: {
-            range: [0, this.result[0].length - 1],
-            title: AXIS_X_TITLE,
-            titlefont: {
-                family: AXIS_FONT_FAMILY,
-                size: AXIS_FONT_SIZE,
-                color: AXIS_FONT_COLOR
+            xaxis: {
+                range: [0, this.result[0].length - 1],
+                title: AXIS_X_TITLE,
+                titlefont: {
+                    family: AXIS_FONT_FAMILY,
+                    size: AXIS_FONT_SIZE,
+                    color: AXIS_FONT_COLOR
+                },
             },
-        },
-        hovermode: 'closest',
-        autosize: true,
-        margin: {
-            l: 60,
-            r: 10,
-            b: 50,
-            t: 30,
-            pad: 0,
-        },
+            hovermode: 'closest',
+            autosize: true,
+            margin: {
+                l: 60,
+                r: 10,
+                b: 50,
+                t: 30,
+                pad: 0,
+            },
 
 
-    };
+            annotations: [
+                {
+                    text: 'Fixed: ' + parseInt(num_fixed),
+                    align: 'left',
+                    showarrow: false,
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0.98,
+                    y: 0.965,
+                    xshift: 100,
+                },
+                {
+                    text: ' Lost: ' + parseInt(num_lost),
+                    align: 'left',
+                    showarrow: false,
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0.98,
+                    y: 0.04,
+                    xshift: 100,
+                },
+            ],
+            legend: {
+                xref: 'paper',
+                yref: 'paper',
+                x: 1.0,
+                y: 0.9,
+                yshift: 100,
+            }
+        };
+        layouts.push(layout);
+    }
     
     var config = {
         responsive: true,
@@ -379,9 +426,9 @@ Run.prototype.plot_result = function() {
 
     // plot initial frame if new run, else update axes for continued sim
     if (first_run) {
-        Plotly.newPlot('plot_div', frames[0], layout, config);   
+        Plotly.newPlot('plot_div', frames[0], layouts[0], config);
     } else {
-        Plotly.relayout('plot_div', layout);
+        Plotly.relayout('plot_div', layouts[0]);
         disable_buttons();
     }
 
@@ -389,11 +436,11 @@ Run.prototype.plot_result = function() {
     for (var i = 0; i < frames.length; i++) {
         Plotly.animate('plot_div', {
                 data: frames[i],
-                layout: layout
+                layout: layouts[i]
             }, {
                 frame: {
                     duration: FRAME_TIME,
-                    redraw: false
+                    redraw: true
                 }
             }
         );
