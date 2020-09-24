@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>PopG Web</title>
+        <link rel="icon" href="static/img/favicon.png">
+
+        <!-- fontawesome 5.12.0 -->
+        <link rel="stylesheet" href="static/vendor/fontawesome/css/all.min.css">
+
+        <!-- JQuery 3.4.1 -->
+        <script src="static/vendor/jquery/jquery-3.4.1.min.js"></script>
+
+        <!-- Bootstrap 4.4.1 -->
+        <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+        <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        
+        <!-- app's own css -->
+        <style>
+            .load_icon {
+                font-size: 100px;
+                margin-top: 25px;
+            }
+            #plot_div {
+                height: 100vh;
+                text-align: center;
+            }
+        </style>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142584122-3"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-142584122-3');
+        </script>        
+
+    </head>
+
+    <body style="margin: 0;">
+
+        <!-- plot -->
+        <div id="plot_div"><i class="fas fa-spinner fa-pulse load_icon load_icon_container"></i></div>
+
+    </body>
+
+    <!-- plotly.js 1.52.1 -->
+    <script src="static/vendor/plotly/plotly.js"></script>
+
+    <!-- load PopG -->
+    <script src="popg.js"></script>
+
+</html>
